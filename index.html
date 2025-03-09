@@ -43,6 +43,7 @@
             overflow-x: hidden;
             background-color: var(--bg-color);
             will-change: background-color;
+            position: relative;
         }
 
         .parallax-wrapper {
@@ -51,6 +52,9 @@
             overflow-y: auto;
             perspective: 2px;
             scroll-behavior: smooth;
+            position: relative;
+            z-index: 1;
+            padding-top: 0;
         }
 
         .parallax-section {
@@ -78,7 +82,9 @@
             justify-content: center;
             align-items: center;
             padding: var(--spacing-lg);
+            padding-top: 0;
             width: 100%;
+            margin-top: -60px;
         }
 
         .hero h1 {
@@ -131,8 +137,10 @@
             background: url('https://source.unsplash.com/random/1920x1080/?technology,abstract') no-repeat center center/cover;
             opacity: 0.2;
             transform: translateZ(-2px) scale(2);
-            will-change: transform, opacity;
-            transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            will-change: transform;
+            -webkit-transform: translateZ(-2px) scale(2);
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
         }
 
         .event, .levels {
@@ -226,14 +234,23 @@
             box-shadow: 0 10px 20px rgba(255, 0, 255, 0.2);
         }
 
+        .toggle-container {
+            position: relative;
+            width: 100%;
+            max-width: min(90%, 1200px);
+            margin: 0 auto;
+            padding: 0.5rem;
+            display: flex;
+            justify-content: flex-end;
+            z-index: 9999;
+        }
+
         #mode-toggle {
-            position: fixed;
-            top: clamp(15px, 2vw, 25px);
-            right: clamp(15px, 2vw, 25px);
-            width: clamp(60px, 8vw, 80px);
+            position: relative;
+            width: clamp(65px, 8vw, 80px);
             height: clamp(30px, 4vw, 40px);
             border-radius: 100px;
-            z-index: 1000;
+            margin-right: -20px;
             padding: clamp(3px, 0.5vw, 4px);
             background: rgba(0, 0, 0, 0.2);
             backdrop-filter: blur(10px);
@@ -245,12 +262,6 @@
             cursor: pointer;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
-        }
-
-        #mode-toggle:hover {
-            background: rgba(0, 0, 0, 0.3);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
         }
 
         .toggle-circle {
@@ -298,8 +309,6 @@
             }
 
             #mode-toggle {
-                top: clamp(15px, 2vw, 20px);
-                right: clamp(15px, 2vw, 20px);
                 width: clamp(55px, 7vw, 65px);
                 height: clamp(28px, 3.5vw, 32px);
             }
@@ -320,27 +329,21 @@
             }
 
             #mode-toggle {
-                top: clamp(12px, 2vw, 15px);
-                right: clamp(12px, 2vw, 15px);
-                width: clamp(50px, 6vw, 55px);
-                height: clamp(26px, 3vw, 28px);
+                width: clamp(60px, 8vw, 70px);
+                height: clamp(30px, 4vw, 35px);
             }
             
             .toggle-circle {
-                width: clamp(60px, 2.9vw, 29px);
-                height: clamp(22px, 2.8vw, 24px);
+                width: clamp(26px, 3.2vw, 31px);
+                height: clamp(26px, 3.2vw, 31px);
             }
             
             .light-mode .toggle-circle {
-                transform: translateX(clamp(23px, 3vw, 27px));
+                transform: translateX(clamp(30px, 4vw, 35px));
             }
-            .light-mode .toggle-text{
-                font-size: clamp(12px, 1.5vw, 17px);
-
-
-            }
+            
             .toggle-circle i {
-                font-size: clamp(12px, 1.5vw, 17px);
+                font-size: clamp(16px, 2vw, 20px);
             }
         }
 
@@ -559,6 +562,13 @@
 <body class="dark-mode">
     <div class="parallax-wrapper">
         <div class="background-effects"></div>
+        <div class="toggle-container">
+            <button id="mode-toggle">
+                <div class="toggle-circle">
+                    <i>🌙</i>
+                </div>
+            </button>
+        </div>
         <div class="parallax-section">
             <div class="parallax-content">
                 <div class="hero">
@@ -595,13 +605,6 @@
             </div>
         </div>
     </div>
-
-    <button id="mode-toggle">
-        <div class="toggle-circle">
-            <i>🌙</i>
-        </div>
-        <span class="toggle-text">ON</span>
-    </button>
 
     <script>
         const text = "Crack the Code, Outsmart AI!";
