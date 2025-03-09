@@ -228,13 +228,13 @@
 
         #mode-toggle {
             position: fixed;
-            top: clamp(10px, 2vw, 20px);
-            right: clamp(10px, 2vw, 20px);
-            width: clamp(48px, 6vw, 80px);
-            height: clamp(24px, 3vw, 40px);
+            top: clamp(15px, 2vw, 25px);
+            right: clamp(15px, 2vw, 25px);
+            width: clamp(60px, 8vw, 80px);
+            height: clamp(30px, 4vw, 40px);
             border-radius: 100px;
             z-index: 1000;
-            padding: clamp(2px, 0.5vw, 4px);
+            padding: clamp(3px, 0.5vw, 4px);
             background: rgba(0, 0, 0, 0.2);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
@@ -254,8 +254,8 @@
         }
 
         .toggle-circle {
-            width: clamp(20px, 2.5vw, 36px);
-            height: clamp(20px, 2.5vw, 36px);
+            width: clamp(24px, 3vw, 36px);
+            height: clamp(24px, 3vw, 36px);
             background: #fff;
             border-radius: 50%;
             display: flex;
@@ -270,12 +270,12 @@
         }
 
         .light-mode .toggle-circle {
-            transform: translateX(clamp(24px, 3vw, 40px));
+            transform: translateX(clamp(32px, 4vw, 40px));
             background: #6600ff;
         }
 
         .toggle-circle i {
-            font-size: clamp(12px, 1.5vw, 18px);
+            font-size: clamp(14px, 1.8vw, 18px);
             line-height: 1;
         }
 
@@ -298,8 +298,10 @@
             }
 
             #mode-toggle {
-                top: clamp(10px, 2vw, 15px);
-                right: clamp(10px, 2vw, 15px);
+                top: clamp(15px, 2vw, 20px);
+                right: clamp(15px, 2vw, 20px);
+                width: clamp(55px, 7vw, 65px);
+                height: clamp(28px, 3.5vw, 32px);
             }
         }
 
@@ -318,23 +320,27 @@
             }
 
             #mode-toggle {
-                top: clamp(8px, 1.5vw, 10px);
-                right: clamp(8px, 1.5vw, 10px);
-                width: clamp(40px, 5vw, 48px);
-                height: clamp(20px, 2.5vw, 24px);
+                top: clamp(12px, 2vw, 15px);
+                right: clamp(12px, 2vw, 15px);
+                width: clamp(50px, 6vw, 55px);
+                height: clamp(26px, 3vw, 28px);
             }
             
             .toggle-circle {
-                width: clamp(16px, 2vw, 20px);
-                height: clamp(16px, 2vw, 20px);
+                width: clamp(60px, 2.9vw, 29px);
+                height: clamp(22px, 2.8vw, 24px);
             }
             
             .light-mode .toggle-circle {
-                transform: translateX(clamp(20px, 2.5vw, 24px));
+                transform: translateX(clamp(23px, 3vw, 27px));
             }
-            
+            .light-mode .toggle-text{
+                font-size: clamp(12px, 1.5vw, 17px);
+
+
+            }
             .toggle-circle i {
-                font-size: clamp(10px, 1.2vw, 12px);
+                font-size: clamp(12px, 1.5vw, 17px);
             }
         }
 
@@ -375,7 +381,7 @@
 
         .light-mode .hero h1,
         .light-mode .hero h2,
-        .light-mode h2.text-purple-400 {
+        .light-mode h2.text-purple-40 {
             background: linear-gradient(45deg, #6600ff, #00ccff);
             -webkit-background-clip: text;
             background-clip: text;
