@@ -9,186 +9,48 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/framer-motion/10.12.1/framer-motion.umd.min.js"></script>
     <style>
+        :root {
+            --spacing-xs: clamp(0.5rem, 1vw, 1rem);
+            --spacing-sm: clamp(1rem, 2vw, 1.5rem);
+            --spacing-md: clamp(1.5rem, 3vw, 2rem);
+            --spacing-lg: clamp(2rem, 4vw, 3rem);
+            --spacing-xl: clamp(3rem, 6vw, 4rem);
+            
+            --font-size-sm: clamp(0.875rem, 1.5vw, 1rem);
+            --font-size-base: clamp(1rem, 2vw, 1.2rem);
+            --font-size-lg: clamp(1.5rem, 3vw, 2rem);
+            --font-size-xl: clamp(2rem, 4vw, 3rem);
+            --font-size-2xl: clamp(2.5rem, 6vw, 4rem);
+            --font-size-3xl: clamp(3rem, 8vw, 5rem);
+            
+            --border-radius-sm: clamp(0.25rem, 0.5vw, 0.5rem);
+            --border-radius-md: clamp(0.5rem, 1vw, 1rem);
+            --border-radius-lg: clamp(1rem, 2vw, 1.5rem);
+            --text-color: #ffffff;
+            --bg-color: #0a0a0a;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'Poppins', sans-serif;
         }
+
         body {
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
-        .hero {
-            margin-top: -5rem;
-            height: 90vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-        .hero h1 {
-            font-size: 5rem;
-            font-weight: 1000;
-            font-family: 'Orbitron', sans-serif;
-            background: linear-gradient(45deg, #ff00ff, #00ffff);
-            -webkit-background-clip: text;
-            color: transparent;
-            animation: glitch 1.5s infinite;
-        }
-        .hero h2 {
-            font-size: 2.8rem;
-            font-family: 'Orbitron', sans-serif;
-            background: linear-gradient(45deg, #ff00ff, #00ffff);
-            -webkit-background-clip: text;
-            color: #fff;
-            margin-bottom: 20px;
-            animation: glitch 1.5s infinite;
-        }
-        .glowing-text {
-            font-size: 1.7rem;
-            color: #0ff;
-            text-shadow: 0px 0px 10px #0ff;
-            animation: glow 1.5s infinite alternate;
-            min-height: 2rem;
-        }
-        @keyframes glow {
-            from { text-shadow: 0px 0px 10px #0ff; }
-            to { text-shadow: 0px 0px 20px #ff00ff; }
-        }
-        @keyframes glitch {
-            0% { text-shadow: 2px 2px #ff00ff; }
-            50% { text-shadow: -2px -2px #00ffff; }
-            100% { text-shadow: 2px 2px #ff00ff; }
-        }
-        .event-details, .levels {
-            padding: 30px 20px;
-            margin: 20px auto;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            width: 80%;
-        }
-        .level {
-            padding: 15px;
-            margin: 10px auto;
-            border-radius: 10px;
-            background: linear-gradient(45deg, rgba(255, 0, 255, 0.3), rgba(0, 255, 255, 0.3));
-            transition: transform 0.3s ease-in-out;
-        }
-        .level:hover {
-            transform: scale(1.05);
-            box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.5);
-        }
-        .cta {
-            margin: 30px 0;
-        }
-        .cta button {
-            padding: 12px 25px;
-            font-size: 1.2rem;
-            border: none;
-            cursor: pointer;
-            background: linear-gradient(45deg, #ff00ff, #00ffff);
-            color: #000;
-            border-radius: 8px;
-            transition: 0.3s;
-        }
-        .cta button:hover {
-            transform: scale(1.1);
-        }
-        .background-effects {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            z-index: -1;
-            background: url('https://source.unsplash.com/random/1920x1080/?technology,abstract') no-repeat center center/cover;
-            opacity: 0.2;
+            transition: background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            min-height: 100vh;
+            overflow-x: hidden;
+            background-color: var(--bg-color);
+            will-change: background-color;
         }
 
-        /* Light mode styles */
-        .light-mode {
-            background-color: #f4f4f4;
-            color: #333;
-        }
-
-        /* Dark mode styles */
-        .dark-mode {
-            background-color: #0a0a0a;
-            color: #fff;
-        }
-
-        /* Toggle button */
-        #mode-toggle {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            width: 80px;
-            height: 40px;
-            background: #1a1b26;
-            border: none;
-            border-radius: 25px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            padding: 5px;
-            box-shadow: 0 0 0 2px transparent;
-            transition: all 0.3s ease;
-            overflow: hidden;
-            z-index: 1000;
-        }
-
-        #mode-toggle::before {
-            content: '';
-            position: absolute;
-            inset: -2px;
-            border-radius: 27px;
-            background: linear-gradient(45deg, #00ffff, #ff00ff);
-            z-index: -1;
-        }
-
-        .toggle-circle {
-            width: 32px;
-            height: 32px;
-            background: linear-gradient(45deg, #3498db, #8e44ad);
-            border-radius: 50%;
-            position: absolute;
-            left: 4px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: transform 0.3s ease;
-        }
-
-        .toggle-circle i {
-            color: white;
-            font-size: 16px;
-        }
-
-        .light-mode #mode-toggle .toggle-circle {
-            transform: translateX(40px);
-        }
-
-        .toggle-text {
-            color: white;
-            font-size: 14px;
-            font-weight: bold;
-            position: absolute;
-            left: 45px;
-            opacity: 1;
-            transition: opacity 0.3s ease;
-        }
-
-        .light-mode #mode-toggle .toggle-text {
-            opacity: 0;
-        }
-
-        /* Add parallax container */
         .parallax-wrapper {
             height: 100vh;
             overflow-x: hidden;
             overflow-y: auto;
             perspective: 2px;
+            scroll-behavior: smooth;
         }
 
         .parallax-section {
@@ -203,21 +65,423 @@
         .parallax-content {
             position: relative;
             transform: translateZ(0);
-            z-index: 1;
+            z-index: 2;
+            width: min(90%, 1200px);
+            margin: 0 auto;
+            transform-style: preserve-3d;
         }
 
-        /* Adjust existing sections for parallax */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: var(--spacing-lg);
+            width: 100%;
+        }
+
+        .hero h1 {
+            font-size: var(--font-size-3xl);
+            font-weight: 700;
+            font-family: 'Orbitron', sans-serif;
+            background: linear-gradient(45deg, #ff00ff, #00ffff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: gradientShift 8s ease infinite;
+            text-align: center;
+            margin-bottom: var(--spacing-md);
+            line-height: 1.2;
+            background-size: 200% 200%;
+        }
+
+        .hero h2 {
+            font-size: var(--font-size-xl);
+            font-family: 'Orbitron', sans-serif;
+            background: linear-gradient(45deg, #ff00ff, #00ffff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: #fff;
+            margin-bottom: var(--spacing-lg);
+            animation: gradientShift 8s ease infinite;
+            text-align: center;
+            line-height: 1.3;
+            background-size: 200% 200%;
+        }
+
+        .glowing-text {
+            font-size: var(--font-size-lg);
+            color: #0ff;
+            text-shadow: 0px 0px 10px #0ff;
+            animation: glowPulse 2s ease-in-out infinite;
+            min-height: 2rem;
+            text-align: center;
+            max-width: 100%;
+            padding: 0 var(--spacing-sm);
+        }
+
+        .background-effects {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: 0;
+            background: url('https://source.unsplash.com/random/1920x1080/?technology,abstract') no-repeat center center/cover;
+            opacity: 0.2;
+            transform: translateZ(-2px) scale(2);
+            will-change: transform, opacity;
+            transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
         .event, .levels {
-            position: relative;
-            z-index: 1;
             background: rgba(17, 24, 39, 0.8);
-            backdrop-filter: blur(10px);
+            border-radius: var(--border-radius-lg);
+            padding: var(--spacing-xl);
+            margin: var(--spacing-lg) auto;
+            width: min(90%, 1200px);
+            position: relative;
             transform: translateZ(0);
+            z-index: 1;
+            transform-style: preserve-3d;
+            backface-visibility: hidden;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
         }
 
-        /* Add smooth scroll behavior */
-        html {
-            scroll-behavior: smooth;
+        .event::before, .levels::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent 0%,
+                rgba(255, 255, 255, 0.05) 50%,
+                transparent 100%
+            );
+            transform: rotate(45deg);
+            animation: shimmer 3s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) rotate(45deg); }
+        }
+
+        .level {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: var(--border-radius-md);
+            padding: var(--spacing-md);
+            margin: var(--spacing-sm) 0;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            font-size: var(--font-size-base);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .level::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.1),
+                transparent
+            );
+            transform: translateX(-100%);
+            transition: transform 0.4s ease;
+        }
+
+        .level:hover::after {
+            transform: translateX(100%);
+        }
+
+        button {
+            background: linear-gradient(45deg, #ff00ff, #00ffff);
+            color: #000;
+            font-size: var(--font-size-base);
+            padding: var(--spacing-sm) var(--spacing-lg);
+            border-radius: var(--border-radius-md);
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(255, 0, 255, 0.2);
+        }
+
+        #mode-toggle {
+            position: fixed;
+            top: var(--spacing-md);
+            right: var(--spacing-md);
+            width: clamp(60px, 8vw, 80px);
+            height: clamp(30px, 4vw, 40px);
+            border-radius: 100px;
+            z-index: 1000;
+            padding: 4px;
+        }
+
+        .toggle-circle {
+            width: clamp(24px, 3.2vw, 32px);
+            height: clamp(24px, 3.2vw, 32px);
+        }
+
+        @media (max-width: 768px) {
+            .event, .levels {
+                padding: var(--spacing-lg);
+                width: 95%;
+            }
+
+            .level {
+                padding: var(--spacing-md);
+            }
+
+            #mode-toggle {
+                top: var(--spacing-sm);
+                right: var(--spacing-sm);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero {
+                padding: var(--spacing-md);
+            }
+
+            .event, .levels {
+                padding: var(--spacing-md);
+            }
+
+            button {
+                width: 100%;
+                padding: var(--spacing-sm) var(--spacing-md);
+            }
+        }
+
+        @media (max-height: 600px) {
+            .hero {
+                padding: var(--spacing-sm) var(--spacing-md);
+            }
+
+            .hero h1 {
+                margin-bottom: var(--spacing-sm);
+            }
+
+            .hero h2 {
+                margin-bottom: var(--spacing-md);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+
+        .dark-mode {
+            --text-color: #ffffff;
+            --bg-color: #0a0a0a;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+
+        .light-mode {
+            --text-color: #1a1a1a;
+            --bg-color: #ffffff;
+            background: linear-gradient(135deg, #f6f6f6, var(--bg-color));
+            color: var(--text-color);
+        }
+
+        .light-mode .hero h1,
+        .light-mode .hero h2,
+        .light-mode h2.text-purple-400 {
+            background: linear-gradient(45deg, #6600ff, #00ccff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: none;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .light-mode .event,
+        .light-mode .levels {
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .light-mode .event::after,
+        .light-mode .levels::after {
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .light-mode .level {
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            color: #1a1a1a;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .light-mode .level:hover {
+            background: #ffffff;
+            box-shadow: 0 8px 16px rgba(102, 0, 255, 0.15);
+            border: 1px solid rgba(102, 0, 255, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .light-mode .glowing-text {
+            color: #6600ff;
+            text-shadow: 0 0 15px rgba(102, 0, 255, 0.3);
+        }
+
+        .light-mode .background-effects {
+            opacity: 0.1;
+            filter: hue-rotate(45deg) saturate(1.5);
+        }
+
+        .light-mode .text-lg, 
+        .light-mode p,
+        .light-mode strong {
+            color: #1a1a1a;
+            text-shadow: none;
+        }
+
+        .light-mode h2.text-purple-400 {
+            color: #6600ff;
+            opacity: 0.9;
+        }
+
+        .dark-mode .text-lg,
+        .dark-mode p,
+        .dark-mode strong,
+        .dark-mode .level {
+            color: #ffffff;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+        }
+
+        .dark-mode h2.text-purple-400 {
+            color: #a78bfa;
+            text-shadow: 0 0 15px rgba(167, 139, 250, 0.3);
+        }
+
+        /* Enhanced Register Button Styles */
+        .register-btn {
+            position: relative;
+            background: linear-gradient(45deg, #ff00ff, #00ffff);
+            color: #000;
+            font-size: var(--font-size-base);
+            padding: var(--spacing-sm) var(--spacing-xl);
+            border-radius: 100px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            overflow: hidden;
+            z-index: 1;
+            box-shadow: 0 4px 15px rgba(255, 0, 255, 0.2);
+        }
+
+        .register-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #00ffff, #ff00ff);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+
+        .register-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 0, 255, 0.3);
+            color: #000;
+        }
+
+        .register-btn:hover::before {
+            opacity: 1;
+        }
+
+        .register-btn:active {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 15px rgba(255, 0, 255, 0.2);
+        }
+
+        .light-mode .register-btn {
+            background: linear-gradient(45deg, #6600ff, #00ccff);
+            box-shadow: 0 4px 15px rgba(102, 0, 255, 0.2);
+            color: #fff;
+        }
+
+        .light-mode .register-btn::before {
+            background: linear-gradient(45deg, #00ccff, #6600ff);
+        }
+
+        .light-mode .register-btn:hover {
+            box-shadow: 0 8px 25px rgba(102, 0, 255, 0.3);
+            color: #fff;
+        }
+
+        @media (max-width: 480px) {
+            .register-btn {
+                width: 90%;
+                max-width: 300px;
+                padding: var(--spacing-sm) var(--spacing-lg);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .event, .levels {
+                padding: var(--spacing-lg);
+                width: 95%;
+                margin: var(--spacing-md) auto;
+            }
+
+            .level {
+                padding: var(--spacing-md);
+            }
+        }
+
+        .text-lg, 
+        .level,
+        p,
+        strong {
+            color: var(--text-color);
+            transition: color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes glowPulse {
+            0% { text-shadow: 0 0 10px currentColor, 0 0 20px currentColor; }
+            50% { text-shadow: 0 0 20px currentColor, 0 0 30px currentColor; }
+            100% { text-shadow: 0 0 10px currentColor, 0 0 20px currentColor; }
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
     </style>
 </head>
@@ -235,39 +499,32 @@
         </div>
 
         <div class="parallax-content">
-            <div class="event p-12 bg-gray-900 rounded-2xl shadow-xl w-4/5 mx-auto my-12 text-center">
+            <div class="event">
                 <h2 class="text-4xl font-bold text-purple-400 mb-6">Event Details</h2>
-                <p class="text-gray-300 text-lg">Welcome to the <strong>OG Prompt Engineer</strong> challenge, where your coding skills will be pushed to the limit.
+                <p class="text-lg">Welcome to the <strong>OG Prompt Engineer</strong> challenge, where your coding skills will be pushed to the limit.
                 Implement logic so complex that AI struggles to replicate it. Are you ready to take on the challenge and prove yourself?</p>
             </div>
-            <div class="p-12 bg-gray-900 rounded-2xl shadow-xl w-4/5 mx-auto my-12 text-center">
+
+            <div class="levels">
                 <h2 class="text-4xl font-bold text-purple-400 mb-6">Levels</h2>
-                <div class="flex flex-col gap-6">
-                    <div class="p-6 bg-gray-800 rounded-lg shadow-lg text-xl hover:scale-105 transition-transform text-white dark:text-gray-100">
-                        Level 1 - JavaScript Trickery
-                    </div>
-                    <div class="p-6 bg-gray-800 rounded-lg shadow-lg text-xl hover:scale-105 transition-transform text-white dark:text-gray-100">
-                        Level 2 - Complex Animations
-                    </div>
-                    <div class="p-6 bg-gray-800 rounded-lg shadow-lg text-xl hover:scale-105 transition-transform text-white dark:text-gray-100">
-                        Level 3 - Pixel-Perfect Cloning
-                    </div>
+                <div class="flex flex-col gap-4">
+                    <div class="level">Level 1 - JavaScript Trickery</div>
+                    <div class="level">Level 2 - Complex Animations</div>
+                    <div class="level">Level 3 - Pixel-Perfect Cloning</div>
                 </div>
             </div>
-            
-            <div class="p-12 bg-gray-900 rounded-2xl shadow-xl w-4/5 mx-auto my-12 text-center">
+
+            <div class="event">
                 <h2 class="text-4xl font-bold text-purple-400 mb-6">Rule</h2>
-                <p class="text-gray-300 text-lg"><strong>The one to implement the exact copy/replica wins.</strong></p>
+                <p class="text-lg"><strong>The one to implement the exact copy/replica wins.</strong></p>
             </div>
-            <div class="text-center pb-20">
-                <button class="mt-8 px-8 py-4 text-xl font-bold text-black bg-gradient-to-r from-purple-400 to-cyan-400 rounded-xl shadow-xl hover:scale-110 transition-transform hover:shadow-2xl">
-                    Register Now
-                </button>
+
+            <div class="text-center py-8">
+                <button class="register-btn">Register Now</button>
             </div>
         </div>
     </div>
 
-    <!-- Light/Dark Mode Toggle Button -->
     <button id="mode-toggle">
         <div class="toggle-circle">
             <i>🌙</i>
@@ -282,6 +539,8 @@
 
         function animateText() {
             const textElement = document.getElementById("animated-text");
+            if (!textElement) return;
+
             if (!deleting) {
                 textElement.innerText = text.slice(0, index++);
                 if (index > text.length) {
@@ -298,38 +557,259 @@
             }
             setTimeout(animateText, deleting ? 50 : 100);
         }
-        
-        animateText();
 
-        // Light/Dark mode toggle functionality
+        document.addEventListener('DOMContentLoaded', () => {
+            animateText();
+            gsap.registerPlugin(ScrollTrigger);
+
+            // Enhanced Hero Animations
+            const heroTimeline = gsap.timeline();
+            
+            heroTimeline
+                .from('.hero h1', {
+                    duration: 1.8,
+                    y: 100,
+                    rotation: 5,
+                    opacity: 0,
+                    ease: "elastic.out(1, 0.75)",
+                    clearProps: "all"
+                })
+                .from('.hero h2', {
+                    duration: 1.5,
+                    y: 50,
+                    rotation: -5,
+                    opacity: 0,
+                    ease: "back.out(1.7)",
+                    clearProps: "all"
+                }, "-=1")
+                .from('#animated-text', {
+                    duration: 1,
+                    y: 30,
+                    opacity: 0,
+                    ease: "power2.out",
+                    clearProps: "all"
+                }, "-=0.5");
+
+            // Enhanced Section Animations
+            gsap.utils.toArray('.event, .levels').forEach((section, i) => {
+                const timeline = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: section,
+                        start: "top 85%",
+                        end: "top 15%",
+                        toggleActions: "play none none reverse"
+                    }
+                });
+
+                timeline
+                    .from(section, {
+                        opacity: 0,
+                        y: 30,
+                        scale: 0.95,
+                        duration: 0.8,
+                        ease: "power2.out",
+                        clearProps: "all"
+                    })
+                    .from(section.querySelectorAll('h2, p'), {
+                        opacity: 0,
+                        y: 20,
+                        duration: 0.6,
+                        stagger: 0.2,
+                        ease: "power2.out",
+                        clearProps: "all"
+                    }, "-=0.4");
+            });
+
+            // Enhanced Level Animations
+            const levelsTimeline = gsap.timeline({
+                scrollTrigger: {
+                    trigger: '.levels',
+                    start: "top 75%",
+                    toggleActions: "play none none reverse"
+                }
+            });
+
+            levelsTimeline
+                .from('.level', {
+                    opacity: 0,
+                    x: -30,
+                    duration: 0.6,
+                    stagger: {
+                        amount: 0.5,
+                        ease: "power2.out"
+                    },
+                    ease: "back.out(1.4)",
+                    clearProps: "all"
+                })
+                .to('.level', {
+                    keyframes: [
+                        { scale: 1.02, duration: 0.2 },
+                        { scale: 1, duration: 0.2 }
+                    ],
+                    stagger: 0.1
+                }, "-=0.3");
+
+            // Enhanced Register Button Animation
+            gsap.from('.register-btn', {
+                scrollTrigger: {
+                    trigger: '.register-btn',
+                    start: "top 90%",
+                    toggleActions: "play none none reverse"
+                },
+                scale: 0.5,
+                opacity: 0,
+                rotation: -5,
+                duration: 1.2,
+                ease: "elastic.out(1, 0.5)",
+                clearProps: "all"
+            });
+
+            // Enhanced Hover Animations
+            document.querySelectorAll('.level').forEach(level => {
+                level.addEventListener('mouseenter', () => {
+                    gsap.to(level, {
+                        scale: 1.03,
+                        y: -5,
+                        duration: 0.4,
+                        ease: "power2.out",
+                        boxShadow: '0 10px 20px rgba(0, 0, 0, 0.2)',
+                    });
+                });
+                
+                level.addEventListener('mouseleave', () => {
+                    gsap.to(level, {
+                        scale: 1,
+                        y: 0,
+                        duration: 0.3,
+                        ease: "power2.inOut",
+                        boxShadow: 'none',
+                    });
+                });
+            });
+
+            // Continuous Animations
+            gsap.to('.hero h1', {
+                y: 15,
+                rotation: 1,
+                duration: 2.5,
+                ease: "sine.inOut",
+                yoyo: true,
+                repeat: -1,
+                clearProps: "transform"
+            });
+
+            gsap.to('.register-btn', {
+                scale: 1.02,
+                duration: 1.5,
+                ease: "sine.inOut",
+                yoyo: true,
+                repeat: -1,
+                clearProps: "transform"
+            });
+
+            // Background Parallax Enhancement
+            gsap.to('.background-effects', {
+                yPercent: 20,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: "body",
+                    start: "top top",
+                    end: "bottom bottom",
+                    scrub: 1
+                }
+            });
+        });
+
         const modeToggleButton = document.getElementById("mode-toggle");
         const body = document.body;
 
-        // Check if a mode preference is stored, default to dark mode if none exists
-        const storedMode = localStorage.getItem("mode");
-        if (storedMode === "light") {
-            body.classList.add("light-mode");
-            body.classList.remove("dark-mode");
-        } else {
-            // Ensure dark mode is set by default
-            body.classList.remove("light-mode");
-            body.classList.add("dark-mode");
-            localStorage.setItem("mode", "dark");
+        function updateMode(isLight) {
+            // Prevent multiple transitions
+            if (document.body.dataset.transitioning === 'true') return;
+            document.body.dataset.transitioning = 'true';
+            
+            // Pre-load styles
+            const elements = document.querySelectorAll('.event, .levels, .level, .text-lg, p, strong, h2');
+            elements.forEach(el => {
+                el.style.willChange = 'transform, opacity, color, background-color, text-shadow';
+            });
+            
+            gsap.timeline({
+                onComplete: () => {
+                    // Clean up
+                    elements.forEach(el => {
+                        el.style.willChange = 'auto';
+                    });
+                    document.body.dataset.transitioning = 'false';
+                }
+            })
+            .add(() => {
+                if (isLight) {
+                    body.classList.remove("dark-mode");
+                    body.classList.add("light-mode");
+                } else {
+                    body.classList.remove("light-mode");
+                    body.classList.add("dark-mode");
+                }
+            }, 0)
+            .to('body', {
+                backgroundColor: isLight ? '#ffffff' : '#0a0a0a',
+                duration: 0.3,
+                ease: "power2.inOut"
+            }, 0)
+            .to('.event, .levels', {
+                backgroundColor: isLight ? 'rgba(255, 255, 255, 0.9)' : 'rgba(17, 24, 39, 0.8)',
+                duration: 0.3,
+                ease: "power2.inOut"
+            }, 0);
+
+            localStorage.setItem("mode", isLight ? "light" : "dark");
         }
 
+        // Initialize mode from storage
+        const storedMode = localStorage.getItem("mode");
+        if (storedMode === "light") {
+            updateMode(true);
+        }
+
+        // Handle mode toggle with debounce
+        let toggleTimeout;
         modeToggleButton.addEventListener("click", () => {
-            body.classList.toggle("light-mode");
-            body.classList.toggle("dark-mode");
-            localStorage.setItem("mode", body.classList.contains("light-mode") ? "light" : "dark");
+            if (toggleTimeout) clearTimeout(toggleTimeout);
+            toggleTimeout = setTimeout(() => {
+                if (document.body.dataset.transitioning === 'true') return;
+                const isLight = !body.classList.contains("light-mode");
+                updateMode(isLight);
+            }, 50);
         });
 
-        // Add parallax scroll effect
+        // Optimize scroll performance
+        let ticking = false;
         window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const background = document.querySelector('.background-effects');
-            background.style.transform = `translateY(${scrolled * 0.5}px) translateZ(-1px) scale(2)`;
+            if (!ticking) {
+                requestAnimationFrame(() => {
+                    const scrolled = window.pageYOffset;
+                    const background = document.querySelector('.background-effects');
+                    if (background) {
+                        background.style.transform = `translateY(${scrolled * 0.5}px) translateZ(-1px) scale(2)`;
+                    }
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        });
+
+        let resizeTimer;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(() => {
+                if (window.innerWidth <= 480) {
+                    document.documentElement.style.setProperty('--spacing-lg', '1.5rem');
+                } else {
+                    document.documentElement.style.setProperty('--spacing-lg', 'clamp(2rem, 4vw, 3rem)');
+                }
+            }, 250);
         });
     </script>
 </body>
 </html>
-
